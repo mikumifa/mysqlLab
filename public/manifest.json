@@ -1,6 +1,6 @@
 {
   "short_name": "InnoDB Engine Simulator",
-  "name": "MySQL 隔离事务 & 锁 LAB",
+  "name": "MySQL 事务隔离 & 锁 LAB",
   "icons": [
     {
       "src": "favicon.ico",

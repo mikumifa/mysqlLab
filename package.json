@@ -2,6 +2,7 @@
   "name": "mysqllab",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/mysqllab",
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.17",
     "@testing-library/dom": "^10.4.1",
