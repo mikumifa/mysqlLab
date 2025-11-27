@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# 数据管理基础实验 06 演示程序
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+本项目为南京大学软件学院《数据管理基础》2025 秋季学期第六次实验课的课堂演示程序，基于 **Create React App** 构建，用于直观演示 MySQL 事务隔离级别、锁冲突与可重复读等现象。界面提供两条模拟会话线路，便于在课堂上复现脏读、不可重复读、幻读、死锁等待等典型场景。
 
-## Available Scripts
+## 功能概览
+- **隔离级别切换**：支持 READ-UNCOMMITTED、READ-COMMITTED、REPEATABLE-READ、SERIALIZABLE 四种级别，实时影响读写行为。
+- **双会话对比**：Session A/B 独立控制，演示并发更新、提交/回滚、自动提交与手动事务。
+- **锁与等待**：行级锁申请、冲突检测、死锁判断与日志提示，帮助讲解锁兼容矩阵。
+- **库存数据视图**：展示已提交数据、会话缓冲区和快照读取结果，便于观察不同隔离级别下的读取效果。
+- **可视化日志**：记录关键操作与异常（如死锁、快照读取差异），支持一键重置模拟环境。
+- **布局拖拽**：侧栏宽度与右侧分区高度可拖拽调整，方便在教室投屏时优化可见区域。
 
-In the project directory, you can run:
+## 环境要求
+- Node.js 18+（课堂机器可直接使用内置环境）
+- npm 或 yarn 包管理器
 
-### `npm start`
+## 快速开始
+```bash
+# 安装依赖（首次运行时）
+npm install
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# 启动开发服务器
+npm start
+# 浏览器访问 http://localhost:3000
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# 生产构建（可选）
+npm run build
 
-### `npm test`
+# 运行内置测试（如需展示 CRA 默认测试框架）
+npm test
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 课堂演示建议流程
+1. **初始化**：点击“重置”保持隔离级别不变，清空日志与会话缓冲。
+2. **隔离级别演示**：
+   - RU/RC 下让 Session A 更新未提交，Session B 读取，观察脏读与不可重复读。
+   - RR 下展示快照读特性，说明当前读与快照读的差异。
+   - SR 下展示写冲突和等待队列。
+3. **锁与死锁**：在两会话中交叉更新不同商品，触发锁等待；再互相请求对方持有的行，演示死锁检测与回滚。
+4. **日志回顾**：通过日志面板回顾时间线，强化对锁兼容性与事务状态的理解。
 
-### `npm run build`
+## 目录结构
+- `src/App.js`：核心逻辑与 UI 交互（事务状态、锁管理、日志）。
+- `src/Icon.js`：应用标识组件。
+- `src/index.js`、`src/index.css`：入口与全局样式。
+- `public/`：静态资源与 HTML 模板。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 许可
+仅用于南京大学软件学院《数据管理基础》课程教学演示。如需在其他课程或场景复用，请注明来源。
